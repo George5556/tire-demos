@@ -873,16 +873,26 @@
 
     try {
       if (supabaseConfig.url && supabaseConfig.key) {
-        const response = await fetch(supabaseConfig.url + '/rest/v1/bookings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            apikey: supabaseConfig.key,
-            Authorization: 'Bearer ' + supabaseConfig.key,
-            Prefer: 'return=minimal'
-          },
-          body: JSON.stringify(bookingData)
-        });
+        /* Не даём форме зависнуть, если сервер не ответил */
+        const abortController = new AbortController();
+        const abortTimer = setTimeout(() => abortController.abort(), 12000);
+
+        let response;
+        try {
+          response = await fetch(supabaseConfig.url + '/rest/v1/bookings', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: supabaseConfig.key,
+              Authorization: 'Bearer ' + supabaseConfig.key,
+              Prefer: 'return=minimal'
+            },
+            body: JSON.stringify(bookingData),
+            signal: abortController.signal
+          });
+        } finally {
+          clearTimeout(abortTimer);
+        }
 
         if (!response.ok) throw new Error('HTTP ' + response.status);
 
