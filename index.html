@@ -679,9 +679,8 @@
     });
   }
 
-  /* ── Прогресс, шапка, параллакс ── */
+  /* ── Прогресс, шапка ── */
   const header = query('#nv');
-  const heroBg = query('#bg');
   const progressBar = query('#pg');
   let scrollScheduled = false;
 
@@ -690,9 +689,6 @@
     const docHeight = document.documentElement.scrollHeight - innerHeight;
     progressBar.style.width = (docHeight > 0 ? Math.min(100, scrollY / docHeight * 100) : 0) + '%';
     header.classList.toggle('nav-on', scrollY > 30);
-    if (!prefersReducedMotion && heroBg) {
-      heroBg.style.transform = `translate3d(0,${Math.min(scrollY * .18, 150)}px,0) scale(1.1)`;
-    }
     scrollScheduled = false;
   };
 
