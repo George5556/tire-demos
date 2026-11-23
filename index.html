@@ -32,7 +32,6 @@
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.4", "ratingCount": "240" }
 }
 </script>
-<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <style>
   html { scroll-behavior: smooth; }
@@ -97,6 +96,49 @@
 
   /* наклон карточек */
   .tilt { transition: transform .18s ease-out, border-color .3s, box-shadow .3s; will-change: transform; }
+
+  /* фон первого экрана: без внешних картинок, грузится мгновенно */
+  .hero-bg {
+    background:
+      radial-gradient(760px 440px at 84% 10%, rgba(255,85,0,.18), transparent 65%),
+      radial-gradient(560px 380px at 10% 90%, rgba(255,85,0,.07), transparent 70%),
+      repeating-linear-gradient(118deg, rgba(255,255,255,.03) 0 2px, transparent 2px 12px),
+      linear-gradient(180deg, #19191e 0%, #121214 72%);
+  }
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    right: -12%; top: 4%;
+    width: 58vmin; height: 58vmin;
+    border-radius: 50%;
+    border: 8vmin solid rgba(255,255,255,.022);
+    box-shadow: inset 0 0 0 2px rgba(255,85,0,.06);
+  }
+
+  /* карточки услуг: векторные иконки вместо фото */
+  .svc-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    color: #FF5500;
+    background:
+      radial-gradient(120% 130% at 82% 0%, rgba(255,85,0,.16), transparent 62%),
+      linear-gradient(145deg, #1b1b20, #17171a);
+  }
+  .svc-media::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(135deg, rgba(255,255,255,.028) 0 1px, transparent 1px 11px);
+  }
+  .svc-media svg {
+    position: relative;
+    width: 76px; height: 76px;
+    filter: drop-shadow(0 8px 20px rgba(255,85,0,.28));
+    transition: transform .45s cubic-bezier(.22,.7,.3,1);
+  }
+  .group:hover .svc-media svg { transform: scale(1.1) rotate(-4deg); }
 
   /* радиусы */
   .r {
@@ -195,14 +237,8 @@
 </nav>
 
 <header class="relative min-h-[100svh] flex items-center overflow-hidden pt-36 sm:pt-28 pb-20">
-  <img id="bg" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1200&amp;q=65"
-       srcset="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=800&amp;q=60 800w,
-               https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1200&amp;q=65 1200w,
-               https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-       sizes="100vw" fetchpriority="high" decoding="async"
-       alt="Автомобиль на вечерней дороге"
-       class="absolute inset-0 w-full h-full object-cover opacity-45 scale-110 will-change-transform">
-  <div class="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/70 to-ink"></div>
+  <div class="hero-bg absolute inset-0" aria-hidden="true"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-ink/40 via-transparent to-ink"></div>
 
   <div class="relative z-10 max-w-6xl w-full mx-auto px-5 grid lg:grid-cols-[1.15fr_.85fr] items-center gap-10">
     <div>
@@ -284,10 +320,12 @@
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
     <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.05s">
-      <div class="h-40 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=700&q=65"
-             alt="Работа мастера в шиномонтажном боксе" loading="lazy"
-             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      <div class="svc-media h-40" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+          <circle cx="32" cy="32" r="22"/>
+          <circle cx="32" cy="32" r="9"/>
+          <path d="M32 10v8M32 46v8M10 32h8M46 32h8M16.5 16.5l5.7 5.7M41.8 41.8l5.7 5.7M47.5 16.5l-5.7 5.7M22.2 41.8l-5.7 5.7"/>
+        </svg>
       </div>
       <div class="p-5">
         <h3 class="font-semibold text-lg">Сезонная переобувка</h3>
@@ -300,10 +338,14 @@
     </article>
 
     <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.13s">
-      <div class="h-40 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=700&q=65"
-             alt="Автомобиль в сервисном боксе" loading="lazy"
-             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      <div class="svc-media h-40" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+          <circle cx="32" cy="32" r="21"/>
+          <circle cx="32" cy="32" r="4" fill="currentColor" stroke="none"/>
+          <path d="M32 32l11-11"/>
+          <path d="M9 23a24 24 0 0 1 8-10M55 41a24 24 0 0 1-8 10"/>
+          <path d="M9 15v8h8M55 49v-8h-8"/>
+        </svg>
       </div>
       <div class="p-5">
         <h3 class="font-semibold text-lg">Балансировка колёс</h3>
@@ -316,10 +358,14 @@
     </article>
 
     <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.21s">
-      <div class="h-40 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=65"
-             alt="Крупный план литого диска" loading="lazy"
-             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      <div class="svc-media h-40" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+          <circle cx="32" cy="32" r="21"/>
+          <circle cx="32" cy="32" r="8"/>
+          <path d="M32 11v7M32 46v7M11 32h7M46 32h7"/>
+          <path d="M40 44c5 1 9-3 9-8"/>
+          <path d="M45 33l4 3 3-4"/>
+        </svg>
       </div>
       <div class="p-5">
         <h3 class="font-semibold text-lg">Правка дисков</h3>
@@ -332,10 +378,12 @@
     </article>
 
     <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.29s">
-      <div class="h-40 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=700&q=65"
-             alt="Хранение автомобильных шин" loading="lazy"
-             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      <div class="svc-media h-40" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+          <ellipse cx="32" cy="18" rx="18" ry="7"/>
+          <path d="M14 18v10c0 3.9 8 7 18 7s18-3.1 18-7V18"/>
+          <path d="M14 34v10c0 3.9 8 7 18 7s18-3.1 18-7V34"/>
+        </svg>
       </div>
       <div class="p-5">
         <h3 class="font-semibold text-lg">Хранение шин</h3>
