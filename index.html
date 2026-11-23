@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Хороший шиномонтаж на Комендантском — переобувка, балансировка, ремонт дисков</title>
+<meta name="description" content="Шиномонтаж на Комендантском проспекте, 44к2: переобувка от 2 600 ₽, балансировка, правка дисков, хранение шин. Работаем ежедневно 9:00–21:00.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121214'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23FF5500' stroke-width='7'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23FF5500'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Хороший шиномонтаж на Комендантском">
+<meta property="og:description" content="Переобувка от 2 600 ₽, балансировка, правка дисков и хранение шин. Комендантский пр., 44к2. Ежедневно 9:00–21:00.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": "Хороший шиномонтаж",
+  "description": "Шиномонтаж на Комендантском проспекте: переобувка, балансировка, правка дисков, хранение шин.",
+  "telephone": "+7-921-372-88-63",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Комендантский проспект, 44, корп. 2",
+    "addressLocality": "Санкт-Петербург",
+    "addressCountry": "RU"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 60.0264, "longitude": 30.2357 },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "09:00",
+    "closes": "21:00"
+  }],
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.4", "ratingCount": "240" }
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #121214; color: #fff; -webkit-font-smoothing: antialiased; }
+  ::selection { background: #FF5500; color: #fff; }
+
+  @keyframes spin  { to { transform: rotate(360deg); } }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,.55); }
+    50%      { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-14px); }
+  }
+  @keyframes mq { to { transform: translateX(-50%); } }
+  @keyframes pop {
+    0%   { transform: scale(.86); opacity: .35; }
+    60%  { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes glow {
+    0%, 100% { opacity: .35; transform: scale(1); }
+    50%      { opacity: .6; transform: scale(1.12); }
+  }
+
+  .spin-slow { animation: spin 22s linear infinite; }
+  .dot { animation: pulse 2s ease-in-out infinite; }
+  .float { animation: float 7s ease-in-out infinite; }
+  .glow { animation: glow 6s ease-in-out infinite; }
+
+  /* появление при скролле */
+  .rv { opacity: 0; }
+  .rv.in { opacity: 1; animation: rise .7s cubic-bezier(.22,.7,.3,1) var(--d, 0s) backwards; }
+  .hero-in { animation: rise .9s cubic-bezier(.22,.7,.3,1) both; }
+
+  .num.pop { animation: pop .38s cubic-bezier(.3,1.4,.5,1); }
+
+  /* прогресс скролла */
+  #pg { transition: width .1s linear; }
+
+  /* якоря не прячутся под фиксированной шапкой */
+  #services, #reviews, #book { scroll-margin-top: 88px; }
+  @media (max-width: 640px) { #services, #reviews, #book { scroll-margin-top: 124px; } }
+
+  /* шапка */
+  #nv.nav-on {
+    background: rgba(18,18,20,.82);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 12px 34px -14px #000;
+  }
+
+  /* бегущая строка */
+  .mq { animation: mq 34s linear infinite; }
+  .mq:hover { animation-play-state: paused; }
+
+  /* наклон карточек */
+  .tilt { transition: transform .18s ease-out, border-color .3s, box-shadow .3s; will-change: transform; }
+
+  /* радиусы */
+  .r {
+    border: 1px solid #2c2c33; background: #1E1E22; color: #d4d4d8;
+    transition: background .25s, border-color .25s, color .25s, transform .2s;
+  }
+  .r:hover { border-color: #FF5500; transform: translateY(-2px); }
+  .r.on {
+    background: #FF5500; border-color: #FF5500; color: #fff;
+    box-shadow: 0 8px 24px -8px rgba(255,85,0,.7);
+  }
+
+  /* блик на кнопках */
+  .shine { position: relative; overflow: hidden; }
+  .shine::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+    transform: translateX(-130%);
+    transition: transform .65s ease;
+  }
+  .shine:hover::after { transform: translateX(130%); }
+
+  #mp { transition: opacity .35s ease; }
+
+  /* спиннер */
+  .sp {
+    display: inline-block; width: 15px; height: 15px; margin-right: 8px; vertical-align: -2px;
+    border: 2px solid rgba(255,255,255,.35); border-top-color: #fff;
+    border-radius: 50%; animation: spin .7s linear infinite;
+  }
+
+  /* галочка */
+  .ck { animation: draw .65s ease forwards; }
+  .ck:nth-of-type(2) { animation-delay: .35s; }
+
+  /* поле с ошибкой */
+  .field { position: relative; }
+  .field .err { display: none; color: #ef4444; font-size: 11px; margin-top: 4px; }
+  .field.bad input, .field.bad select { border-color: #ef4444; }
+  .field.bad .err { display: block; }
+
+  /* чекбокс */
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: #a1a1aa; cursor: pointer; }
+  .check input { width: 18px; height: 18px; flex: 0 0 18px; accent-color: #FF5500; margin-top: 1px; }
+  .check.bad { color: #ef4444; }
+
+  /* отзывы */
+  .st { position: relative; display: inline-block; color: #3f3f46; letter-spacing: 1.5px; font-size: 15px; line-height: 1; }
+  .st::before {
+    content: '★★★★★'; position: absolute; left: 0; top: 0;
+    width: var(--v, 100%); overflow: hidden; color: #FF5500; white-space: nowrap;
+  }
+  .fl {
+    border: 1px solid #2c2c33; background: #1E1E22; color: #a1a1aa;
+    transition: background .25s, border-color .25s, color .25s, transform .2s;
+  }
+  .fl:hover { border-color: #FF5500; color: #fff; transform: translateY(-1px); }
+  .fl.on { background: #FF5500; border-color: #FF5500; color: #fff; box-shadow: 0 8px 24px -10px rgba(255,85,0,.7); }
+  .ya-badge { background: rgba(252,63,29,.12); color: #ff7a5c; border: 1px solid rgba(252,63,29,.25); }
+  .rev-in { animation: rise .45s cubic-bezier(.22,.7,.3,1) var(--d, 0s) both; }
+
+  /* маршрут */
+  .route-btn { transition: border-color .25s, color .25s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .rv { opacity: 1 !important; }
+    .ck { stroke-dashoffset: 0 !important; }
+  }
+</style>
+<noscript><style>.rv { opacity: 1; }</style></noscript>
+</head>
+<body class="font-sans overflow-x-hidden">
+
+<div id="pg" class="fixed top-0 left-0 z-[60] h-[3px] w-0 bg-acc shadow-[0_0_14px_#FF5500]"></div>
+
+<!-- 1. ШАПКА + HERO -->
+<nav id="nv" class="fixed inset-x-0 top-0 z-50">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+    <a href="#" class="flex items-center gap-2.5 font-bold tracking-tight">
+      <span class="w-9 h-9 rounded-lg bg-acc grid place-items-center text-lg shadow-lg shadow-acc/30">◉</span>
+      <span class="text-lg sm:text-xl">Хороший<span class="text-acc"> шиномонтаж</span></span>
+    </a>
+
+    <div id="openBadge" class="order-3 sm:order-none w-full sm:w-auto justify-center flex items-center gap-2 text-xs sm:text-sm bg-card/80 border border-white/10 rounded-full px-4 py-2 backdrop-blur">
+      <span class="w-2.5 h-2.5 rounded-full bg-green-500 dot"></span>
+      <span class="text-zinc-200">Открыто</span>
+      <span class="text-zinc-500">•</span>
+      <span class="text-green-400 font-semibold">до 21:00</span>
+    </div>
+
+    <a href="tel:+79213728863" class="text-sm sm:text-base font-semibold hover:text-acc transition-colors whitespace-nowrap">
+      +7 (921) 372-88-63
+    </a>
+  </div>
+</nav>
+
+<header class="relative min-h-[100svh] flex items-center overflow-hidden pt-36 sm:pt-28 pb-20">
+  <img id="bg" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1200&amp;q=65"
+       srcset="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=800&amp;q=60 800w,
+               https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1200&amp;q=65 1200w,
+               https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
+       sizes="100vw" fetchpriority="high" decoding="async"
+       alt="Автомобиль на вечерней дороге"
+       class="absolute inset-0 w-full h-full object-cover opacity-45 scale-110 will-change-transform">
+  <div class="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/70 to-ink"></div>
+
+  <div class="relative z-10 max-w-6xl w-full mx-auto px-5 grid lg:grid-cols-[1.15fr_.85fr] items-center gap-10">
+    <div>
+      <p class="hero-in inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[.2em] text-acc font-semibold mb-5" style="animation-delay:.05s">
+        Шиномонтаж · Комендантский проспект
+      </p>
+      <h1 class="hero-in text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight" style="animation-delay:.15s">
+        Шиномонтаж<br>
+        с <span class="text-acc">человеческим</span><br class="sm:hidden"> отношением
+      </h1>
+      <p class="hero-in mt-5 text-zinc-400 max-w-md text-base sm:text-lg" style="animation-delay:.3s">
+        Переобувка, балансировка, правка дисков и хранение шин. Комендантский пр., 44к2 — ежедневно 9:00–21:00.
+      </p>
+
+      <div class="hero-in mt-8 flex flex-wrap items-center gap-3" style="animation-delay:.42s">
+        <a href="#book" class="shine bg-acc hover:bg-[#ff6a1f] px-7 py-4 rounded-xl font-bold text-white shadow-lg shadow-acc/25 transition-transform duration-200 hover:scale-105">
+          Записаться за 1 минуту
+        </a>
+        <a href="#services" class="px-6 py-4 rounded-xl border border-white/15 hover:border-acc hover:text-acc transition-colors">
+          Услуги и цены
+        </a>
+      </div>
+
+      <dl class="hero-in mt-10 flex flex-wrap gap-x-10 gap-y-4 text-sm" style="animation-delay:.55s">
+        <div><dt class="text-zinc-500">Режим</dt><dd class="font-semibold mt-0.5">Ежедневно 9–21</dd></div>
+        <div><dt class="text-zinc-500">Рейтинг</dt><dd class="font-semibold mt-0.5 tabular-nums"><span class="cnt" data-c="4.4">4.4</span> на Яндекс Картах</dd></div>
+        <div><dt class="text-zinc-500">Отзывов</dt><dd class="font-semibold mt-0.5 tabular-nums"><span class="cnt" data-c="108">108</span> реальных</dd></div>
+      </dl>
+    </div>
+
+    <div class="hidden lg:grid place-items-center hero-in" style="animation-delay:.45s">
+      <div class="float relative w-72 h-72 xl:w-80 xl:h-80">
+        <div class="glow absolute inset-0 rounded-full bg-acc/25 blur-3xl"></div>
+        <svg class="spin-slow relative w-full h-full drop-shadow-2xl" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+          <circle cx="100" cy="100" r="92" stroke="#FF5500" stroke-width="6"/>
+          <circle cx="100" cy="100" r="74" stroke="#3a3a42" stroke-width="18"/>
+          <circle cx="100" cy="100" r="34" stroke="#FF5500" stroke-width="4" fill="#1E1E22"/>
+          <g stroke="#e4e4e7" stroke-width="8" stroke-linecap="round">
+            <path d="M100 66V38"/><path d="M129 83l24-14"/><path d="M129 117l24 14"/>
+            <path d="M100 134v28"/><path d="M71 117l-24 14"/><path d="M71 83L47 69"/>
+          </g>
+          <circle cx="100" cy="100" r="9" fill="#FF5500"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- бегущая строка -->
+<div class="border-y border-white/5 bg-card/30 py-5 overflow-hidden">
+  <div class="mq flex w-max text-xs sm:text-sm uppercase tracking-[.25em] text-zinc-500" aria-hidden="true">
+    <div class="flex shrink-0 items-center gap-10 pr-10">
+      <span>Переобувка за 25 минут</span><span class="text-acc">•</span>
+      <span>Лазерная балансировка</span><span class="text-acc">•</span>
+      <span>Правка дисков</span><span class="text-acc">•</span>
+      <span>Хранение шин</span><span class="text-acc">•</span>
+      <span>Динамометрический ключ</span><span class="text-acc">•</span>
+    </div>
+    <div class="flex shrink-0 items-center gap-10 pr-10">
+      <span>Переобувка за 25 минут</span><span class="text-acc">•</span>
+      <span>Лазерная балансировка</span><span class="text-acc">•</span>
+      <span>Правка дисков</span><span class="text-acc">•</span>
+      <span>Хранение шин</span><span class="text-acc">•</span>
+      <span>Динамометрический ключ</span><span class="text-acc">•</span>
+    </div>
+  </div>
+</div>
+
+<!-- 2. УСЛУГИ -->
+<section id="services" class="max-w-6xl mx-auto px-5 py-20">
+  <div class="rv flex flex-wrap items-end justify-between gap-4 mb-10">
+    <div>
+      <p class="text-acc text-xs font-bold uppercase tracking-[.2em] mb-2">Услуги</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Делаем быстро и по делу</h2>
+    </div>
+    <p class="text-zinc-500 text-sm max-w-xs">Цены за комплект из 4 колёс. Оплата картой или наличными.</p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.05s">
+      <div class="h-40 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=700&q=65"
+             alt="Работа мастера в шиномонтажном боксе" loading="lazy"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-lg">Сезонная переобувка</h3>
+        <p class="text-zinc-500 text-sm mt-1">Снятие, монтаж, балансировка, протяжка динамометрическим ключом.</p>
+        <div class="mt-4 flex items-center justify-between">
+          <p class="text-acc font-bold text-xl">от 2 600 ₽</p>
+          <span class="text-acc opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.13s">
+      <div class="h-40 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=700&q=65"
+             alt="Автомобиль в сервисном боксе" loading="lazy"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-lg">Балансировка колёс</h3>
+        <p class="text-zinc-500 text-sm mt-1">Проверяем на стенде и устраняем вибрацию на скорости. Входит в переобувку.</p>
+        <div class="mt-4 flex items-center justify-between">
+          <p class="text-acc font-bold text-xl">в комплексе</p>
+          <span class="text-acc opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.21s">
+      <div class="h-40 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=65"
+             alt="Крупный план литого диска" loading="lazy"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-lg">Правка дисков</h3>
+        <p class="text-zinc-500 text-sm mt-1">Прокатка и аргонная сварка литья. Восстанавливаем даже сложные замятия.</p>
+        <div class="mt-4 flex items-center justify-between">
+          <p class="text-acc font-bold text-xl">по прайсу</p>
+          <span class="text-acc opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="tilt rv group bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-acc/40 hover:shadow-xl hover:shadow-acc/10 hover:scale-105" style="--d:.29s">
+      <div class="h-40 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=700&q=65"
+             alt="Хранение автомобильных шин" loading="lazy"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-lg">Хранение шин</h3>
+        <p class="text-zinc-500 text-sm mt-1">Сезонное хранение: приняли, промаркировали, вернули в целости.</p>
+        <div class="mt-4 flex items-center justify-between">
+          <p class="text-acc font-bold text-xl">от 1 000 ₽/мес</p>
+          <span class="text-acc opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 3. БЫСТРЫЙ ВЫБОР ЦЕНЫ -->
+<section class="max-w-6xl mx-auto px-5 pb-20">
+  <div class="rv bg-card rounded-3xl border border-white/5 p-6 sm:p-10 grid lg:grid-cols-2 gap-10 items-center">
+    <div>
+      <p class="text-acc text-xs font-bold uppercase tracking-[.2em] mb-2">Цена за минуту</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Выберите радиус колёс</h2>
+      <p class="text-zinc-500 mt-3 text-sm">Комплексная переобувка: снятие, монтаж, балансировка и установка. Комплект из 4 колёс, легковые автомобили.</p>
+
+      <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mt-7" role="group" aria-label="Радиус колёс">
+        <button type="button" class="r on rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="2 600" data-r="R13" aria-pressed="true">R13<span class="block text-[11px] font-normal opacity-70 mt-0.5">2 600 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="2 800" data-r="R14" aria-pressed="false">R14<span class="block text-[11px] font-normal opacity-70 mt-0.5">2 800 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="3 100" data-r="R15" aria-pressed="false">R15<span class="block text-[11px] font-normal opacity-70 mt-0.5">3 100 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="3 300" data-r="R16" aria-pressed="false">R16<span class="block text-[11px] font-normal opacity-70 mt-0.5">3 300 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="3 800" data-r="R17" aria-pressed="false">R17<span class="block text-[11px] font-normal opacity-70 mt-0.5">3 800 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="4 000" data-r="R18" aria-pressed="false">R18<span class="block text-[11px] font-normal opacity-70 mt-0.5">4 000 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="4 600" data-r="R19" aria-pressed="false">R19<span class="block text-[11px] font-normal opacity-70 mt-0.5">4 600 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="6 500" data-r="R20" aria-pressed="false">R20<span class="block text-[11px] font-normal opacity-70 mt-0.5">6 500 ₽</span></button>
+        <button type="button" class="r rounded-xl px-2 py-2.5 font-semibold leading-tight" data-p="6 700" data-r="R21–R22" aria-pressed="false">R21–R22<span class="block text-[11px] font-normal opacity-70 mt-0.5">6 700 ₽</span></button>
+      </div>
+      <p class="text-zinc-600 text-xs mt-3">Кроссоверы, внедорожники и коммерческий транспорт — по отдельному прайсу, уточняйте по телефону.</p>
+    </div>
+
+    <div class="relative text-center lg:text-right">
+      <div class="glow absolute right-0 top-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-acc/15 blur-3xl pointer-events-none"></div>
+      <p class="relative text-zinc-500 text-sm">Комплексная переобувка</p>
+      <p class="relative mt-2 flex items-baseline justify-center lg:justify-end gap-2">
+        <span id="priceDisplay" class="num text-6xl sm:text-7xl font-extrabold text-acc tabular-nums">2 600</span>
+        <span class="text-3xl font-bold text-acc">₽</span>
+      </p>
+      <a href="#book" class="shine relative inline-block mt-6 bg-white text-ink font-bold px-6 py-3 rounded-xl hover:bg-acc hover:text-white transition-colors">
+        Зафиксировать цену
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ОТЗЫВЫ -->
+<section id="reviews" class="max-w-6xl mx-auto px-5 py-20">
+  <div class="rv flex flex-wrap items-end justify-between gap-4 mb-8">
+    <div>
+      <p class="text-acc text-xs font-bold uppercase tracking-[.2em] mb-2">Отзывы</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Что говорят клиенты</h2>
+      <p class="text-zinc-500 text-sm mt-3 max-w-xl">Реальные отзывы с Яндекс Карт. Критические тоже публикуем — вместе с ответами.</p>
+    </div>
+    <a href="https://yandex.ru/maps/org/khoroshiy/48313664653/reviews/"
+       target="_blank" rel="noopener"
+       class="px-5 py-3 rounded-xl border border-white/15 text-sm hover:border-acc hover:text-acc transition-colors">
+      Все 108 отзывов на Яндекс Картах →
+    </a>
+  </div>
+
+  <div class="rv grid sm:grid-cols-3 gap-4 mb-8" style="--d:.08s">
+    <div class="bg-card rounded-2xl border border-white/5 p-5">
+      <span class="inline-flex items-center text-[11px] font-semibold px-2 py-1 rounded-md ya-badge">Яндекс Карты</span>
+      <p class="text-4xl font-extrabold text-acc mt-3">4,4</p>
+      <span class="st mt-2" style="--v:88%">★★★★★</span>
+      <p class="text-xs text-zinc-500 mt-2">240 оценок</p>
+    </div>
+    <div class="bg-card rounded-2xl border border-white/5 p-5">
+      <span class="inline-flex items-center text-[11px] font-semibold px-2 py-1 rounded-md ya-badge">Персонал</span>
+      <p class="text-4xl font-extrabold text-acc mt-3">77%</p>
+      <span class="st mt-2" style="--v:77%">★★★★★</span>
+      <p class="text-xs text-zinc-500 mt-2">62 отзыва</p>
+    </div>
+    <div class="bg-card rounded-2xl border border-white/5 p-5">
+      <span class="inline-flex items-center text-[11px] font-semibold px-2 py-1 rounded-md ya-badge">Время ожидания</span>
+      <p class="text-4xl font-extrabold text-acc mt-3">84%</p>
+      <span class="st mt-2" style="--v:84%">★★★★★</span>
+      <p class="text-xs text-zinc-500 mt-2">45 отзывов</p>
+    </div>
+  </div>
+
+  <div class="rv flex flex-wrap items-center gap-2 mb-6" style="--d:.14s">
+    <div class="flex flex-wrap gap-2" role="group" aria-label="Фильтр отзывов">
+      <button type="button" class="fl on rounded-full px-4 py-2 text-sm" data-filter="all" aria-pressed="true">Все</button>
+      <button type="button" class="fl rounded-full px-4 py-2 text-sm" data-filter="pos" aria-pressed="false">Положительные</button>
+      <button type="button" class="fl rounded-full px-4 py-2 text-sm" data-filter="neg" aria-pressed="false">Критические</button>
+    </div>
+    <select id="sortSelect" aria-label="Сортировка отзывов"
+            class="ml-auto bg-card border border-white/10 rounded-full px-4 py-2 text-sm text-zinc-300 outline-none focus:border-acc transition-colors">
+      <option value="new">Сначала новые</option>
+      <option value="old">Сначала старые</option>
+      <option value="hi">Сначала высокие</option>
+      <option value="lo">Сначала низкие</option>
+    </select>
+  </div>
+
+  <div id="reviewsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+  <div class="text-center mt-8">
+    <button id="showMoreBtn" type="button" class="fl rounded-full px-6 py-3 text-sm font-semibold">Показать ещё</button>
+  </div>
+
+  <p class="text-[11px] text-zinc-600 text-center mt-6">
+    Отзывы взяты с Яндекс Карт · <a href="https://yandex.ru/maps/org/khoroshiy/48313664653/reviews/" target="_blank" rel="noopener" class="underline hover:text-acc transition-colors">оригинал</a>
+  </p>
+</section>
+
+<!-- 5. ЗАПИСЬ + ГАРАНТИЯ + КАРТА + КОНТАКТЫ -->
+<footer id="book" class="bg-[#0d0d0f] border-t border-white/5">
+  <div class="max-w-6xl mx-auto px-5 py-16 grid lg:grid-cols-2 gap-12">
+    <div class="rv">
+      <p class="text-acc text-xs font-bold uppercase tracking-[.2em] mb-2">Запись</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Работаем <span class="text-acc">ежедневно</span></h2>
+      <p class="text-zinc-500 mt-3 text-sm">Оставьте имя и телефон — перезвоним в течение 5 минут и подтвердим запись.</p>
+
+      <form id="bookingForm" class="mt-7 grid sm:grid-cols-2 gap-3" novalidate>
+        <div class="field">
+          <input name="name" id="nameInput" type="text" required placeholder="Имя" autocomplete="name"
+                 class="w-full bg-card border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-acc focus:ring-2 focus:ring-acc/20 transition-colors placeholder:text-zinc-600">
+          <span class="err">Введите хотя бы 2 символа</span>
+        </div>
+        <div class="field">
+          <input name="phone" id="phoneInput" type="tel" required placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" maxlength="18"
+                 class="w-full bg-card border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-acc focus:ring-2 focus:ring-acc/20 transition-colors placeholder:text-zinc-600">
+          <span class="err">Введите 11 цифр номера</span>
+        </div>
+
+        <label class="check sm:col-span-2" id="consentCheckbox">
+          <input type="checkbox" id="consentInput" required>
+          <span>Соглашаюсь с <a href="#" id="privacyLink" class="underline hover:text-acc transition-colors">политикой конфиденциальности</a> и обработкой персональных данных *</span>
+        </label>
+
+        <button type="submit" id="submitButton"
+                class="shine sm:col-span-2 bg-acc hover:bg-[#ff6a1f] rounded-xl py-3.5 font-bold transition-transform duration-200 hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100">
+          Записаться
+        </button>
+        <p id="statusMessage" class="sm:col-span-2 text-sm text-center hidden" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="rv" style="--d:.12s">
+      <!-- Гарантии -->
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <div class="bg-card rounded-2xl border border-white/5 p-4">
+          <p class="text-acc font-bold text-lg">12 мес.</p>
+          <p class="text-zinc-400 text-xs mt-1">Гарантия на все работы. Если что-то не так — переделаем за свой счёт.</p>
+        </div>
+        <div class="bg-card rounded-2xl border border-white/5 p-4">
+          <p class="text-acc font-bold text-lg">100 км</p>
+          <p class="text-zinc-400 text-xs mt-1">Бесплатная протяжка колёс после переобувки — заезжайте в любой день.</p>
+        </div>
+        <div class="bg-card rounded-2xl border border-white/5 p-4">
+          <p class="text-acc font-bold text-lg">Фикс. смета</p>
+          <p class="text-zinc-400 text-xs mt-1">Цену называем до начала работ и не меняем. Никаких скрытых доплат.</p>
+        </div>
+        <div class="bg-card rounded-2xl border border-white/5 p-4">
+          <p class="text-acc font-bold text-lg">Оплата картой</p>
+          <p class="text-zinc-400 text-xs mt-1">Картой, наличными или переводом. Чек всегда при вас.</p>
+        </div>
+      </div>
+
+      <!-- Адрес + маршрут -->
+      <div class="bg-card rounded-2xl border border-white/5 p-5 mb-4">
+        <h3 class="font-semibold text-lg mb-1">Как добраться</h3>
+        <p class="text-zinc-400 text-sm">Комендантский просп., 44, корп. 2<br>Санкт-Петербург</p>
+        <p class="text-zinc-500 text-xs mt-1">Ежедневно 9:00–21:00</p>
+        <a href="https://yandex.ru/maps/?rtext=~60.0264,30.2357&amp;rtt=auto"
+           target="_blank" rel="noopener noreferrer"
+           class="route-btn inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-xl border border-white/15 text-sm hover:border-acc hover:text-acc transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3l2-14h14l2 14h-2"/><circle cx="8" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M8 18h9"/></svg>
+          Построить маршрут
+        </a>
+      </div>
+
+      <!-- Карта -->
+      <div class="rounded-2xl overflow-hidden border border-white/10 bg-card">
+        <iframe id="mp" title="Хороший шиномонтаж на карте Санкт-Петербурга"
+                src="https://yandex.ru/map-widget/v1/?ll=30.2357%2C60.0264&amp;z=16&amp;l=map&amp;lang=ru_RU&amp;pt=30.2357%2C60.0264%2Cpm2rdm"
+                class="w-full h-60 sm:h-72 border-0" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="mt-2 text-[11px] text-zinc-600">
+        Карта не загрузилась?
+        <a href="https://yandex.ru/maps/org/khoroshiy/48313664653/" target="_blank" rel="noopener"
+           class="underline hover:text-acc transition-colors">Открыть в Яндекс.Картах</a>
+      </p>
+
+      <a href="tel:+79213728863" class="mt-5 inline-flex items-center gap-2 text-xl font-bold hover:text-acc transition-colors">
+        +7 (921) 372-88-63
+      </a>
+    </div>
+  </div>
+
+  <div class="border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-5 py-6 flex flex-wrap justify-between gap-2 text-xs text-zinc-600">
+      <p>© 2026 Хороший шиномонтаж · Комендантский пр., 44к2 · Санкт-Петербург</p>
+      <p>Ежедневно 9:00–21:00</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Политика конфиденциальности -->
+<dialog id="privacyDialog" class="bg-card text-zinc-300 rounded-2xl border border-white/10 p-0 w-[min(92vw,640px)] backdrop:bg-black/75">
+  <div class="p-6">
+    <div class="flex items-start justify-between gap-4">
+      <h2 class="text-lg font-bold text-white">Политика обработки персональных данных</h2>
+      <button type="button" data-close-policy aria-label="Закрыть" class="text-zinc-500 hover:text-acc text-2xl leading-none transition-colors">×</button>
+    </div>
+    <div class="mt-4 text-sm space-y-3 text-zinc-400 max-h-[60vh] overflow-y-auto pr-1">
+      <p>Оператор: шиномонтаж «Хороший», Санкт-Петербург, Комендантский просп., 44, корп. 2. Телефон: +7 (921) 372-88-63.</p>
+      <p>Мы собираем только имя и номер телефона, которые вы указываете в форме записи. Данные используются исключительно для обратного звонка и подтверждения записи, не передаются третьим лицам и не используются для рассылок без отдельного согласия.</p>
+      <p>Права субъекта персональных данных и порядок отзыва согласия определяются Федеральным законом № 152-ФЗ «О персональных данных». Отозвать согласие можно по телефону или при личном обращении.</p>
+      <p>Сайт использует Яндекс Карты: при загрузке карты Яндекс может устанавливать собственные cookie согласно своей политике конфиденциальности.</p>
+      <p class="text-xs text-zinc-600">Шаблон политики. Перед публикацией уточните полные реквизиты оператора (ИП/ООО, ИНН, юридический адрес, email).</p>
+    </div>
+    <button type="button" data-close-policy class="mt-5 w-full bg-acc hover:bg-[#ff6a1f] rounded-xl py-3 font-semibold transition-colors">Понятно</button>
+  </div>
+</dialog>
+
+<script>
+  /* ── Конфигурация Supabase ── */
+  const supabaseConfig = {
+    url: 'https://qmovxdbnemhcsaohhrdi.supabase.co',
+    key: 'sb_publishable_tcLQevJNdER0HV5VpR9XYw_111wz96C'
+  };
+  const query = selector => document.querySelector(selector);
+  const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Статус «открыто/закрыто» по петербургскому времени ── */
+  const openBadge = query('#openBadge');
+  const moscowHour = Number(new Intl.DateTimeFormat('ru-RU', {
+    hour: 'numeric', hour12: false, timeZone: 'Europe/Moscow'
+  }).format(new Date()));
+  const isOpenNow = moscowHour >= 9 && moscowHour < 21;
+  openBadge.innerHTML = isOpenNow
+    ? '<span class="w-2.5 h-2.5 rounded-full bg-green-500 dot"></span><span class="text-zinc-200">Открыто</span><span class="text-zinc-500">•</span><span class="text-green-400 font-semibold">до 21:00</span>'
+    : '<span class="w-2.5 h-2.5 rounded-full" style="background:#ef4444"></span><span class="text-zinc-200">Закрыто</span><span class="text-zinc-500">•</span><span class="text-zinc-400 font-semibold">откроемся в 9:00</span>';
+
+  /* ── Выбор радиуса ── */
+  const radiusButtons = [...document.querySelectorAll('.r')];
+  const priceDisplay = query('#priceDisplay');
+  let selectedRadius = 'R13';
+
+  radiusButtons.forEach(button => button.addEventListener('click', () => {
+    radiusButtons.forEach(otherButton => { otherButton.classList.remove('on'); otherButton.setAttribute('aria-pressed', 'false'); });
+    button.classList.add('on'); button.setAttribute('aria-pressed', 'true');
+    selectedRadius = button.dataset.r;
+    priceDisplay.textContent = button.dataset.p;
+    priceDisplay.classList.remove('pop'); void priceDisplay.offsetWidth; priceDisplay.classList.add('pop');
+  }));
+
+  /* ── Появление блоков + счётчики ── */
+  /* Страховка: если анимации не проигрываются, контент всё равно должен быть виден */
+  const ensureVisible = element => setTimeout(() => {
+    element.style.opacity = '1';
+    element.style.transform = 'none';
+    element.style.animation = 'none';
+  }, 1000);
+
+  const appearObserver = new IntersectionObserver((entries, observer) => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('in'); observer.unobserve(entry.target);
+    ensureVisible(entry.target);
+    entry.target.querySelectorAll('.cnt').forEach(counterEl => {
+      const targetValue = +counterEl.dataset.c;
+      if (prefersReducedMotion) { counterEl.textContent = targetValue; return; }
+      const startTime = performance.now();
+      const animateCounter = now => {
+        const progress = Math.min(1, (now - startTime) / 900);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counterEl.textContent = targetValue % 1 === 0 ? Math.round(targetValue * eased) : (targetValue * eased).toFixed(1);
+        if (progress < 1) requestAnimationFrame(animateCounter);
+      };
+      counterEl.textContent = targetValue % 1 === 0 ? 0 : '0.0';
+      requestAnimationFrame(animateCounter);
+    });
+  }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(el => appearObserver.observe(el));
+
+  /* ── 3D-наклон карточек ── */
+  if (!prefersReducedMotion && matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.tilt').forEach(card => {
+      card.addEventListener('pointermove', pointerEvent => {
+        const rect = card.getBoundingClientRect();
+        const offsetX = (pointerEvent.clientX - rect.left) / rect.width - .5;
+        const offsetY = (pointerEvent.clientY - rect.top) / rect.height - .5;
+        card.style.transform = `perspective(900px) rotateX(${(-offsetY * 6).toFixed(2)}deg) rotateY(${(offsetX * 6).toFixed(2)}deg) translateY(-4px)`;
+      });
+      card.addEventListener('pointerleave', () => card.style.transform = '');
+    });
+  }
+
+  /* ── Прогресс, шапка, параллакс ── */
+  const header = query('#nv');
+  const heroBg = query('#bg');
+  const progressBar = query('#pg');
+  let scrollScheduled = false;
+
+  const updateOnScroll = () => {
+    const scrollY = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - innerHeight;
+    progressBar.style.width = (docHeight > 0 ? Math.min(100, scrollY / docHeight * 100) : 0) + '%';
+    header.classList.toggle('nav-on', scrollY > 30);
+    if (!prefersReducedMotion && heroBg) {
+      heroBg.style.transform = `translate3d(0,${Math.min(scrollY * .18, 150)}px,0) scale(1.1)`;
+    }
+    scrollScheduled = false;
+  };
+
+  addEventListener('scroll', () => {
+    if (!scrollScheduled) { scrollScheduled = true; requestAnimationFrame(updateOnScroll); }
+  }, { passive: true });
+  updateOnScroll();
+
+  /* Страховка для hero: текст виден, даже если анимация не проигралась */
+  setTimeout(() => {
+    document.querySelectorAll('.hero-in').forEach(element => {
+      element.style.opacity = '1';
+      element.style.transform = 'none';
+      element.style.animation = 'none';
+    });
+  }, 1800);
+
+  /* ── Яндекс Карта ── */
+  const mapIframe = query('#mp');
+  if (mapIframe) {
+    mapIframe.addEventListener('load', () => mapIframe.style.opacity = '1');
+  }
+
+  /* ── Отзывы ── */
+  const reviewsData = [
+    { name: 'Всеволод Мелентьев', date: '2023-11-29', rating: 5, text: 'Прекрасные специалисты. Заезжаю не первый раз. Вежливо общаются с клиентом, можно самому понаблюдать за ремонтом. Очереди ни разу не было. Боковой порез сделали в тот же день. Ремонт датчика выполнили при мне. Есть туалет рядом. Рекомендую.' },
+    { name: 'Juli Kolokolo', date: '2024-07-15', rating: 5, text: 'Действительно хорошее место. Приезжаю сюда обычно на шиномонтаж и хранение шин, очень довольна обслуживанием и скоростью работы. Записываясь заранее, меня принимают ровно по времени. Ранее была проблема — постоянно спускала шина, обращалась в другие места, но там не помогли, а здесь специалист Диловар сразу выявил проблему, установив гриб и жгут.' },
+    { name: 'Антонина Зинина', date: '2024-11-24', rating: 5, text: 'Милые ребята, без проблем записалась и сразу приехала, сделали быстро. Правда, за герметик пришлось доплатить — это было неожиданно, плюс 350 руб. за колесо. Дали гарантию, правда только неделю.' },
+    { name: 'Наталья Дибина', date: '2026-09-20', rating: 5, text: 'Очень люблю это место! Всегда помогут, расскажут и никогда не попросят лишнего. Мне, как девушке, это очень ценно и важно. Спасибо большое за вашу работу и бережное отношение к клиентам 🙏', reply: 'Наталья, спасибо за тёплые слова! Всегда рады помочь и ответить на любые вопросы.' },
+    { name: 'Константин Н.', date: '2025-10-17', rating: 5, text: 'Был недавно в этом шиномонтаже с проблемой. Никак не снять было одну секретку с колеса. Здесь оперативно помогли, сняли секретку без повреждения литого диска. Рекомендую мастера Баху, огромный ему респект. Рядом есть кафешка, где можно подождать, пока колдуют над вашим авто.' },
+    { name: 'Виктор Ченков', date: '2025-11-03', rating: 5, text: 'Отличное место, заехал к ребятам поменять резину, сделали всё великолепно, быстро, качественно. Сервис очень хороший! Рекомендую!' },
+    { name: 'Александр Харченко', date: '2026-01-16', rating: 5, text: 'Быстро, тепло, клиентоориентировано. Парень помог с проколом. Лишних денег не взял. Рекомендую.' },
+    { name: 'BiG BOSS', date: '2026-02-09', rating: 5, text: 'Отличный мастер, вежливый и профессиональный. Очень помогли с колесом! Спасибо!' },
+    { name: 'Марат Ш.', date: '2025-04-16', rating: 1, text: 'Шиномонтаж ужасный. После того, как они поменяли, пришлось через пару дней заехать в другой, а оказалось, что они не все болты затянули и колёса накачали вместо 2.3 — 2.7. Не советую туда ехать.', reply: 'Марат, разобрали ситуацию. Провели дополнительный инструктаж с мастерами смены, ввели обязательный чек-лист контроля затяжки и давления перед выдачей автомобиля клиенту. Спасибо, что указали на проблему.', collapsed: true },
+    { name: 'Дмитрий Ш.', date: '2024-11-20', rating: 1, text: 'Плюсов нет. Не смогли отбалансировать задние колёса. Вибрация не ушла. При обращении в другой шиномонтаж обнаружился дисбаланс в 30 грамм на обоих колёсах. Не рекомендую никому.', reply: 'Дмитрий, нам очень жаль. Проверили оборудование после вашего отзыва — была некорректная калибровка стенда. Уже устранили. Готовы бесплатно переделать балансировку — приезжайте в любое время.', collapsed: true }
+  ];
+
+  const reviewsGrid = query('#reviewsGrid');
+  const showMoreButton = query('#showMoreBtn');
+  let activeFilter = 'all';
+  let activeSort = 'new';
+  let visibleCount = 6;
+
+  const starHtml = rating => `<span class="st" style="--v:${rating / 5 * 100}%">★★★★★</span>`;
+  const initials = name => name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  const formatDate = isoDate => new Date(isoDate).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+  const yandexBadge = '<span class="inline-flex items-center text-[10px] font-semibold px-2 py-1 rounded-md ya-badge shrink-0">Яндекс Карты</span>';
+
+  const renderReviews = () => {
+    const filtered = reviewsData.filter(review =>
+      activeFilter === 'all' ? true :
+      activeFilter === 'pos' ? review.rating >= 4 :
+      activeFilter === 'neg' ? review.rating <= 3 : true
+    ).sort((firstReview, secondReview) =>
+      activeSort === 'new' ? secondReview.date.localeCompare(firstReview.date) :
+      activeSort === 'old' ? firstReview.date.localeCompare(secondReview.date) :
+      activeSort === 'hi' ? secondReview.rating - firstReview.rating :
+      firstReview.rating - secondReview.rating
+    );
+
+    reviewsGrid.innerHTML = filtered.slice(0, visibleCount).map((review, index) => `
+      <article class="rev-in bg-card rounded-2xl border border-white/5 p-5 flex flex-col" style="--d:${(index * .04).toFixed(2)}s">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full grid place-items-center text-xs font-bold shrink-0 bg-[#FC3F1D]/15 text-[#ff7a5c]">${initials(review.name)}</span>
+          <span class="flex-1 min-w-0">
+            <span class="font-semibold text-sm block truncate">${review.name}</span>
+            <span class="text-xs text-zinc-500 block">${formatDate(review.date)}</span>
+          </span>
+          ${yandexBadge}
+        </div>
+        <div class="mt-3 flex items-center gap-2">
+          ${starHtml(review.rating)}
+        </div>
+        <p class="mt-3 text-sm text-zinc-300 leading-relaxed ${review.collapsed ? 'line-clamp-4' : ''}">${review.text}</p>
+        ${review.collapsed ? '<button type="button" data-expand class="self-start mt-2 text-xs text-acc hover:underline">Читать целиком</button>' : ''}
+        ${review.reply ? `<div class="mt-4 rounded-xl bg-acc/10 border border-acc/15 p-3">
+          <p class="text-[10px] font-bold text-acc uppercase tracking-wider">Ответ сервиса</p>
+          <p class="text-xs text-zinc-400 mt-1 leading-relaxed">${review.reply}</p>
+        </div>` : ''}
+      </article>`).join('');
+
+    showMoreButton.style.display = filtered.length > visibleCount ? '' : 'none';
+    showMoreButton.textContent = `Показать ещё (${Math.max(0, filtered.length - visibleCount)})`;
+
+    setTimeout(() => reviewsGrid.querySelectorAll('.rev-in').forEach(card => {
+      card.style.animation = 'none';
+      card.style.opacity = '1';
+    }), 700);
+  };
+
+  document.querySelectorAll('.fl[data-filter]').forEach(filterButton => filterButton.addEventListener('click', () => {
+    document.querySelectorAll('.fl[data-filter]').forEach(otherButton => { otherButton.classList.remove('on'); otherButton.setAttribute('aria-pressed', 'false'); });
+    filterButton.classList.add('on'); filterButton.setAttribute('aria-pressed', 'true');
+    activeFilter = filterButton.dataset.filter;
+    visibleCount = 6;
+    renderReviews();
+  }));
+
+  query('#sortSelect').addEventListener('change', changeEvent => { activeSort = changeEvent.target.value; renderReviews(); });
+  showMoreButton.addEventListener('click', () => { visibleCount += 3; renderReviews(); });
+
+  reviewsGrid.addEventListener('click', clickEvent => {
+    const expandBtn = clickEvent.target.closest('[data-expand]');
+    if (!expandBtn) return;
+    const paragraph = expandBtn.previousElementSibling;
+    paragraph.classList.toggle('line-clamp-4');
+    expandBtn.textContent = paragraph.classList.contains('line-clamp-4') ? 'Читать целиком' : 'Свернуть';
+  });
+
+  renderReviews();
+
+  /* ── Маска телефона ── */
+  const phoneInput = query('#phoneInput');
+  phoneInput.addEventListener('input', () => {
+    let digits = phoneInput.value.replace(/\D/g, '');
+    if (!digits) { phoneInput.value = ''; phoneInput.closest('.field').classList.remove('bad'); return; }
+    if (digits[0] === '8') digits = '7' + digits.slice(1);
+    if (digits[0] !== '7') digits = '7' + digits;
+    digits = digits.slice(0, 11);
+
+    let formatted = '+7';
+    if (digits.length > 1) formatted += ' (' + digits.slice(1, 4);
+    if (digits.length >= 4) formatted += ')';
+    if (digits.length > 4) formatted += ' ' + digits.slice(4, 7);
+    if (digits.length > 7) formatted += '-' + digits.slice(7, 9);
+    if (digits.length > 9) formatted += '-' + digits.slice(9, 11);
+
+    phoneInput.value = formatted;
+    /* Убираем ошибку при вводе */
+    phoneInput.closest('.field').classList.remove('bad');
+  });
+
+  /* ── Валидация поля ── */
+  const markField = (element, isBad) => {
+    const field = element.closest('.field') || element.closest('.check');
+    if (field) field.classList.toggle('bad', isBad);
+    return !isBad;
+  };
+
+  /* ── Форма записи ── */
+  const bookingForm = query('#bookingForm');
+  const statusMessage = query('#statusMessage');
+  const nameInput = query('#nameInput');
+  const consentInput = query('#consentInput');
+  const consentLabel = query('#consentCheckbox');
+  const submitButton = query('#submitButton');
+
+  const showStatus = (text, className) => {
+    statusMessage.className = 'sm:col-span-2 text-sm text-center ' + className;
+    statusMessage.textContent = text;
+  };
+
+  bookingForm.addEventListener('submit', async submitEvent => {
+    submitEvent.preventDefault();
+
+    let isValid = true;
+
+    /* Имя */
+    const nameValue = nameInput.value.trim();
+    isValid = markField(nameInput, nameValue.length < 2) && isValid;
+
+    /* Телефон */
+    const phoneDigits = phoneInput.value.replace(/\D/g, '');
+    isValid = markField(phoneInput, phoneDigits.length !== 11) && isValid;
+
+    /* Согласие */
+    isValid = markField(consentInput, !consentInput.checked) && isValid;
+
+    if (!isValid) return;
+
+    const bookingData = {
+      name: nameValue,
+      phone: '+' + phoneDigits,
+      radius: selectedRadius,
+      consent: true,
+      consent_at: new Date().toISOString()
+    };
+
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<span class="sp"></span>Отправляем…';
+    showStatus('', 'hidden');
+
+    try {
+      if (supabaseConfig.url && supabaseConfig.key) {
+        const response = await fetch(supabaseConfig.url + '/rest/v1/bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: supabaseConfig.key,
+            Authorization: 'Bearer ' + supabaseConfig.key,
+            Prefer: 'return=minimal'
+          },
+          body: JSON.stringify(bookingData)
+        });
+
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+
+        bookingForm.innerHTML = `<div class="sm:col-span-2 text-center py-7">
+          <svg class="w-16 h-16 mx-auto mb-3 text-green-400" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle class="ck" cx="26" cy="26" r="23" stroke-dasharray="145" stroke-dashoffset="145"/>
+            <path class="ck" d="M15 27l7 7 15-15" stroke-dasharray="42" stroke-dashoffset="42"/>
+          </svg>
+          <p class="text-green-400 font-semibold">Спасибо! Перезвоним в течение 5 минут.</p>
+        </div>`;
+      } else {
+        /* Демо-режим без Supabase */
+        const bookings = JSON.parse(localStorage.getItem('goodtire_bookings') || '[]');
+        bookings.push({ ...bookingData, at: new Date().toISOString() });
+        localStorage.setItem('goodtire_bookings', JSON.stringify(bookings));
+        bookingForm.innerHTML = '<p class="sm:col-span-2 text-center text-green-400 py-8 font-semibold">Спасибо! Заявка принята.<span class="block text-xs text-zinc-600 font-normal mt-1">Демо-режим: заявка сохранена в браузере.</span></p>';
+      }
+    } catch (error) {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Записаться';
+      showStatus('Не удалось отправить. Попробуйте ещё раз или позвоните: +7 (921) 372-88-63', 'text-red-400');
+      console.error('Booking error:', error);
+    }
+  });
+
+  /* Сбрасываем ошибку при вводе имени */
+  nameInput.addEventListener('input', () => {
+    nameInput.closest('.field').classList.remove('bad');
+  });
+
+  /* Сбрасываем ошибку при клике на чекбокс */
+  consentInput.addEventListener('change', () => {
+    consentLabel.classList.remove('bad');
+  });
+
+  /* ── Политика конфиденциальности ── */
+  const privacyDialog = query('#privacyDialog');
+  const privacyLink = query('#privacyLink');
+  privacyLink.addEventListener('click', clickEvent => {
+    clickEvent.preventDefault();
+    privacyDialog.showModal();
+  });
+  privacyDialog.querySelectorAll('[data-close-policy]').forEach(closeButton =>
+    closeButton.addEventListener('click', () => privacyDialog.close())
+  );
+  privacyDialog.addEventListener('click', clickEvent => {
+    if (clickEvent.target === privacyDialog) privacyDialog.close();
+  });
+</script>
+</body>
+</html>
